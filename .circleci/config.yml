@@ -1,5 +1,6 @@
 version: 2.1
-
+# to run this config file:
+# add modification, commit and then push to: git push origin HEAD:circleci-project-setup
 # reusable docker image
 docker-image: &docker-image
   docker:
@@ -17,7 +18,20 @@ jobs:
           key: "npm-packages"
       - run: npm run build
 
+  test:
+    <<: *docker-image
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - "npm-packages"
+      - run: npm i
+      - run: npm run test
+
 workflows:
   my_workflow:
     jobs:
       - build
+      - test:
+          requires:
+            - build
