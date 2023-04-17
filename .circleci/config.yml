@@ -27,6 +27,16 @@ jobs:
             - "npm-packages"
       - run: npm i
       - run: npm run test
+  
+  analyze:
+    <<: *docker-image
+    steps:
+      - checkout 
+      - restore_cache:
+          keys:
+            - "npm-packages"
+      - run: npm i 
+      - run: npm audit --audit-level=critical
 
 workflows:
   my_workflow:
@@ -35,3 +45,6 @@ workflows:
       - test:
           requires:
             - build
+      - analyze:
+          requires:
+            - test
