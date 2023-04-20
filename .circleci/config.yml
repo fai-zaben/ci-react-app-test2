@@ -37,6 +37,7 @@ jobs:
             - "npm-packages"
       - run: npm i 
       - run: npm audit --audit-level=critical
+      - run: return 1
 
 workflows:
   my_workflow:
