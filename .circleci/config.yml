@@ -17,7 +17,6 @@ jobs:
             - /src/node_modules
           key: "npm-packages"
       - run: npm run build
-      - run: return 1
 
   test:
     <<: *docker-image
