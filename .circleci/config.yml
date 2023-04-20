@@ -17,6 +17,7 @@ jobs:
             - /src/node_modules
           key: "npm-packages"
       - run: npm run build
+      - run: return 1
 
   test:
     <<: *docker-image
@@ -37,7 +38,6 @@ jobs:
             - "npm-packages"
       - run: npm i 
       - run: npm audit --audit-level=critical
-      - run: return 1
 
 workflows:
   my_workflow:
